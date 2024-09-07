@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/workspaces/C#/HackathonProblem/HackathonProblem.csproj",
-      "projectName": "HackathonProblem",
-      "projectPath": "/workspaces/C#/HackathonProblem/HackathonProblem.csproj",
+      "projectUniqueName": "/workspaces/C#/HackathonProblem.Base/HackathonProblem.Base.csproj",
+      "projectName": "HackathonProblem.Base",
+      "projectPath": "/workspaces/C#/HackathonProblem.Base/HackathonProblem.Base.csproj",
       "packagesPath": "/home/vscode/.nuget/packages/",
-      "outputPath": "/workspaces/C#/HackathonProblem/obj/",
+      "outputPath": "/workspaces/C#/HackathonProblem.Base/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/vscode/.nuget/NuGet/NuGet.Config"

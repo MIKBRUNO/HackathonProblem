@@ -1,4 +1,4 @@
-﻿namespace Nsu.HackathonProblem.Contracts
+﻿namespace HackathonProblem.Base.Contracts
 {
     public interface ITeamBuildingStrategy
     {
