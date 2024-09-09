@@ -1,7 +1,7 @@
-namespace HackathonProblem.Utils;
+namespace HackathonProblem.Base.Utils;
 
 using System.Data;
-using HackathonProblem.Base;
+using HackathonProblem.Base.Concepts;
 using Microsoft.VisualBasic.FileIO;
 
 public static class Utils

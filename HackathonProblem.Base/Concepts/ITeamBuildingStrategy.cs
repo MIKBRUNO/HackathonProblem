@@ -1,4 +1,4 @@
-﻿namespace HackathonProblem.Base
+﻿namespace HackathonProblem.Base.Concepts
 {
     public interface ITeamBuildingStrategy
     {
