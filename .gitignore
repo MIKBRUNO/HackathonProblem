@@ -1,4 +1,5 @@
 ﻿/.github
 /.devcontainer
-/Nsu.HackathonProblem.Contracts/Nsu.HackathonProblem.Contracts/obj
-/Nsu.HackathonProblem.Contracts/Nsu.HackathonProblem.Contracts/bin/Debug/net8.0
+/.vscode
+/HackathonProblem.Base/obj/
+/HackathonProblem.Base/bin/
