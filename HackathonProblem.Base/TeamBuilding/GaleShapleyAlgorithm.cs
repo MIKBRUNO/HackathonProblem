@@ -60,27 +60,27 @@ public static class GaleShapleyAlgorithm
         /// <summary>
         /// [woman_i, man_j] := man_j's rating for woman_i (order number)
         /// </summary>
-        private int[,] preferenceTable;
-        private Dictionary<int, int> menIndecies = new();
-        private Dictionary<int, int> womenIndecies = new();
+        private int[,] PreferenceTable;
+        private Dictionary<int, int> MenIndecies = new();
+        private Dictionary<int, int> WomenIndecies = new();
         
         public WomenPreferences(IEnumerable<Wishlist> womenWishlists)
         {
             int count = womenWishlists.Count();
-            preferenceTable = new int[count, count];
+            PreferenceTable = new int[count, count];
             int man_j = 0;
             foreach (int man in womenWishlists.First().DesiredEmployees)
             {
-                menIndecies.Add(man, man_j);
+                MenIndecies.Add(man, man_j);
                 ++man_j;
             }
             int woman_i = 0;
             foreach (Wishlist wishlist in womenWishlists)
             {
-                womenIndecies.Add(wishlist.EmployeeId, woman_i);
+                WomenIndecies.Add(wishlist.EmployeeId, woman_i);
                 int rate = 0;
                 foreach (int manId in wishlist.DesiredEmployees) {
-                    preferenceTable[woman_i, menIndecies[manId]] = rate;
+                    PreferenceTable[woman_i, MenIndecies[manId]] = rate;
                     rate++;
                 }
 
@@ -89,9 +89,9 @@ public static class GaleShapleyAlgorithm
         }
 
         public bool WPrefersM1ToM2(int wId, int m1Id, int m2Id) {
-            return preferenceTable[womenIndecies[wId], menIndecies[m1Id]]
+            return PreferenceTable[WomenIndecies[wId], MenIndecies[m1Id]]
                 <
-                preferenceTable[womenIndecies[wId], menIndecies[m2Id]];
+                PreferenceTable[WomenIndecies[wId], MenIndecies[m2Id]];
         }
     }
 }

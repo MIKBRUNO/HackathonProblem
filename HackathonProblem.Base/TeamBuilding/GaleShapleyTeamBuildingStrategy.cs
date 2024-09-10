@@ -16,7 +16,7 @@ public class GaleShapleyTeamBuildingStrategy : ITeamBuildingStrategy
         Dictionary<int, Employee> dictJuniors = [];
         foreach (Employee junior in juniors)
         {
-            dictTeamleads[junior.Id] = junior;
+            dictJuniors[junior.Id] = junior;
         }
 
         IEnumerable<(int, int)> pairs = GaleShapleyAlgorithm.FindManOptimalMarriage(juniorsWishlists, teamLeadsWishlists);
