@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackathonProblem.Legacy", "HackathonProblem.Legacy\HackathonProblem.Legacy.csproj", "{606EBA70-324D-4DDA-BF5B-9AFCC1EF55EE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem", "HackathonProblem\HackathonProblem.csproj", "{72AD9611-9150-42ED-BC3D-AF054FFA3B9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilding", "TeamBuilding\TeamBuilding.csproj", "{5F7D4D95-C4B0-468B-AE8A-A3BF188E84D9}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{606EBA70-324D-4DDA-BF5B-9AFCC1EF55EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{606EBA70-324D-4DDA-BF5B-9AFCC1EF55EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{606EBA70-324D-4DDA-BF5B-9AFCC1EF55EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{606EBA70-324D-4DDA-BF5B-9AFCC1EF55EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72AD9611-9150-42ED-BC3D-AF054FFA3B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72AD9611-9150-42ED-BC3D-AF054FFA3B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72AD9611-9150-42ED-BC3D-AF054FFA3B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU

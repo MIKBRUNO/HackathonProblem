@@ -5,9 +5,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources/">
+    <Content Include="Resources/*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Folder>
+    </Content>
   </ItemGroup>
 
   <PropertyGroup>
