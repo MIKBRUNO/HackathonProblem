@@ -2,11 +2,10 @@ namespace HackathonProblem.Base.Concepts;
 
 public class HackathonRandom : IHackathon
 {
+    private static Random random = new();
     public void PerformHackathon(in IEnumerable<Employee> teamleads, in IEnumerable<Employee> juniors,
         out IEnumerable<Wishlist> teamleadsWishlists, out IEnumerable<Wishlist> juniorsWishlists)
     {
-        Random random = new();
-        
         Span<int> juniorsIds = juniors.Select(junior => junior.Id).ToArray();
         random.Shuffle(juniorsIds);
         teamleadsWishlists = new List<Wishlist>(teamleads.Count());
