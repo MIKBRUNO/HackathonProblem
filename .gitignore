@@ -1,5 +1,7 @@
 ﻿/.github
 /.devcontainer
 /.vscode
-/HackathonProblem.Base/obj/
-/HackathonProblem.Base/bin/
+/HackathonProblem.Legacy/obj/
+/HackathonProblem.Legacy/bin/
+/HackathonProblem/obj/
+/HackathonProblem/bin/
