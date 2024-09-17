@@ -6,4 +6,4 @@ public interface IEmployee
     public string Name { get; }
 }
 
-public record Employee(int Id, string Name) : IEmployee;
+public record class Employee(int Id, string Name) : IEmployee;

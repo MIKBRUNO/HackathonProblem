@@ -6,4 +6,4 @@ public interface ITeam
     IEmployee Junior { get; }
 }
 
-public record Team(IEmployee Teamlead, IEmployee Junior) : ITeam;
+public record class Team(IEmployee Teamlead, IEmployee Junior) : ITeam;
