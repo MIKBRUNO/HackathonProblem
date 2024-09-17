@@ -1,4 +1,3 @@
-
 namespace HackathonProblem;
 
 public class Hackathon : IHackathon

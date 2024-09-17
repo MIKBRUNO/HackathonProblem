@@ -6,4 +6,4 @@ public interface IWishlist
     IEnumerable<IEmployee> DesiredEmployees { get; }
 }
 
-public record Wishlist(IEmployee Owner, IEnumerable<IEmployee> DesiredEmployees) : IWishlist;
+public record class Wishlist(IEmployee Owner, IEnumerable<IEmployee> DesiredEmployees) : IWishlist;
