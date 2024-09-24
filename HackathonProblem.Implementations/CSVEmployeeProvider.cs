@@ -11,7 +11,7 @@ public class CSVEmployeeProvider : IEmployeeProvider
 {
     private readonly IEnumerable<IEmployee> employees;
     
-    public CSVEmployeeProvider(string filepath)
+    public CSVEmployeeProvider(string filepath, IEmployeeFactory factory)
     {
         var stream = File.OpenRead(filepath);
         var options = new CsvOptions
@@ -22,7 +22,7 @@ public class CSVEmployeeProvider : IEmployeeProvider
         List<IEmployee> list = [];
         foreach (var line in CsvReader.ReadFromStream(stream, options))
         {
-            list.Add(new Employee(int.Parse(line["Id"]), line["Name"]));
+            list.Add(factory.createEmployee(int.Parse(line["Id"]), line["Name"]));
         }
         employees = list;
     }

@@ -2,12 +2,13 @@
 using HackathonProblem.Implementations;
 using TeamBuilding.Algorithms;
 
+namespace HackathonProblem.ConsoleHackathon;
 
 public static class Program
 {
-    static readonly int DEFAULT_REPEATS = 1000;
-    static readonly string JUNIORS_PATH = "Resources/Juniors20.csv";
-    static readonly string TEMALEADS_PATH = "Resources/Teamleads20.csv";
+    private static readonly int DEFAULT_REPEATS = 1000;
+    private static readonly string JUNIORS_PATH = "Resources/Juniors20.csv";
+    private static readonly string TEMALEADS_PATH = "Resources/Teamleads20.csv";
     
     static void Main(string[] args)
     {
@@ -19,8 +20,10 @@ public static class Program
         IHackathon hackathon = new Hackathon(new RandomWishlistGenerator(new Random()));
         IHRManager manager = new HRManager(new GaleShapleyAlgorithm<IEmployee>());
         IHRDirector director = new HRDirector();
-        IEnumerable<IEmployee> juniors = new CSVEmployeeProvider(JUNIORS_PATH).GetEmployees();
-        IEnumerable<IEmployee> teamleads = new CSVEmployeeProvider(TEMALEADS_PATH).GetEmployees();
+        IEnumerable<IEmployee> juniors =
+            new CSVEmployeeProvider(JUNIORS_PATH, new EmployeeFactory()).GetEmployees();
+        IEnumerable<IEmployee> teamleads =
+            new CSVEmployeeProvider(TEMALEADS_PATH, new EmployeeFactory()).GetEmployees();
         
         Console.WriteLine("Starting {0} hackathons", repeats);
         double sum = 0;
@@ -33,5 +36,3 @@ public static class Program
         Console.WriteLine("\nOverall mean: {0}", sum / repeats);
     }
 }
-
-
