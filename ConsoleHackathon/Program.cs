@@ -1,6 +1,5 @@
-﻿using HackathonProblem;
-using HackathonProblem.Implementations;
-using TeamBuilding.Algorithms;
+﻿using HackathonProblem.Implementations;
+using HackathonProblem.TeamBuilding.Algorithms;
 
 namespace HackathonProblem.ConsoleHackathon;
 

@@ -1,4 +1,4 @@
-using TeamBuilding;
+using HackathonProblem.TeamBuilding;
 
 namespace HackathonProblem.Implementations;
 

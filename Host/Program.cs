@@ -1,8 +1,8 @@
 using HackathonProblem;
 using HackathonProblem.HackathonHost;
 using HackathonProblem.Implementations;
-using TeamBuilding;
-using TeamBuilding.Algorithms;
+using HackathonProblem.TeamBuilding;
+using HackathonProblem.TeamBuilding.Algorithms;
 
 const string JuniorsPath = "Resources/Juniors20.csv";
 const string TeamleadsPath = "Resources/Teamleads20.csv";
