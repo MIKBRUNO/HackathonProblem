@@ -1,4 +1,4 @@
-namespace TeamBuilding;
+namespace HackathonProblem.TeamBuilding;
 
 public class Preferences<T> : IPreferences<T> where T : notnull
 {

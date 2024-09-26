@@ -1,4 +1,4 @@
-namespace TeamBuilding;
+namespace HackathonProblem.TeamBuilding;
 
 public interface IPreferences<T>
 {

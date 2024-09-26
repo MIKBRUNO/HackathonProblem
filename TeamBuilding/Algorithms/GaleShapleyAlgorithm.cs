@@ -1,4 +1,4 @@
-namespace TeamBuilding.Algorithms;
+namespace HackathonProblem.TeamBuilding.Algorithms;
 
 /// <summary>
 /// From: https://cpsc.yale.edu/sites/default/files/files/tr407.pdf

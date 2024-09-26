@@ -1,4 +1,4 @@
-namespace TeamBuilding.Algorithms;
+namespace HackathonProblem.TeamBuilding.Algorithms;
 
 public class MarriageNotFoundException : Exception
 {
