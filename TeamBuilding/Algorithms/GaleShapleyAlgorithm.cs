@@ -7,7 +7,7 @@ namespace HackathonProblem.TeamBuilding.Algorithms;
 /// <typeparam name="T">Type to make pairs of</typeparam>
 public class GaleShapleyAlgorithm<T> : ITeamBuildingAlgorithm<T> where T: class
 {
-    public IEnumerable<Pair<T>> BuildMarriage(
+    public IEnumerable<Pair<T>> BuildPairs(
         IEnumerable<IPreferences<T>> menPreferences,
         IEnumerable<IPreferences<T>> womenPreferences)
     {
