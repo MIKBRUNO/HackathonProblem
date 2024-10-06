@@ -29,7 +29,7 @@ public class GaleShapleyStrategy : ITeamBuildingStrategy
         IEnumerable<IPreferences<Employee>> juniorsPreferences =
             WishlistsToPreferences(juniorsDict, teamleadsDict, juniorsWishlists);
         
-        var pairs = new GaleShapleyAlgorithm<Employee>().BuildMarriage(teamleadsPreferences, juniorsPreferences);
+        var pairs = new GaleShapleyAlgorithm<Employee>().BuildPairs(teamleadsPreferences, juniorsPreferences);
         return pairs.Select(pair => new Team(pair.Teamlead, pair.Junior));
     }
 }
