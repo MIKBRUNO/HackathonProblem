@@ -15,7 +15,7 @@ public class HRManager(ITeamBuildingAlgorithm<IEmployee> algorithm) : IHRManager
         var juniorsPreferences = juniorsWishlists.Select(
             w => new Preferences<IEmployee>(w.Owner, w.DesiredEmployees)
         );
-        var pairs = algorithm.BuildMarriage(teamleadsPreferences, juniorsPreferences);
+        var pairs = algorithm.BuildPairs(teamleadsPreferences, juniorsPreferences);
         return pairs.Select(p => new Team(p.Teamlead, p.Junior));
     }
 }
