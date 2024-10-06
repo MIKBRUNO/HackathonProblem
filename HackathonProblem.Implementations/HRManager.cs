@@ -2,9 +2,9 @@ using HackathonProblem.TeamBuilding;
 
 namespace HackathonProblem.Implementations;
 
-public class HRManager(IMarriageAlgorithm<IEmployee> algorithm) : IHRManager
+public class HRManager(ITeamBuildingAlgorithm<IEmployee> algorithm) : IHRManager
 {
-    private readonly IMarriageAlgorithm<IEmployee> algorithm = algorithm;
+    private readonly ITeamBuildingAlgorithm<IEmployee> algorithm = algorithm;
 
     public IEnumerable<ITeam> BuildTeams(
         IEnumerable<IWishlist> teamleadsWishlists, IEnumerable<IWishlist> juniorsWishlists)
@@ -16,6 +16,6 @@ public class HRManager(IMarriageAlgorithm<IEmployee> algorithm) : IHRManager
             w => new Preferences<IEmployee>(w.Owner, w.DesiredEmployees)
         );
         var pairs = algorithm.BuildMarriage(teamleadsPreferences, juniorsPreferences);
-        return pairs.Select(p => new Team(p.Man, p.Woman));
+        return pairs.Select(p => new Team(p.Teamlead, p.Junior));
     }
 }

@@ -5,7 +5,7 @@ namespace HackathonProblem.TeamBuilding.Algorithms;
 /// Finds man optimal marriage
 /// </summary>
 /// <typeparam name="T">Type to make pairs of</typeparam>
-public class GaleShapleyAlgorithm<T> : IMarriageAlgorithm<T> where T: class
+public class GaleShapleyAlgorithm<T> : ITeamBuildingAlgorithm<T> where T: class
 {
     public IEnumerable<Pair<T>> BuildMarriage(
         IEnumerable<IPreferences<T>> menPreferences,
@@ -26,7 +26,7 @@ public class GaleShapleyAlgorithm<T> : IMarriageAlgorithm<T> where T: class
             T man = manPreferences.Owner;
             if (!menBestPassions[man].MoveNext())
             {
-                throw new MarriageNotFoundException("There is a man without pair");
+                throw new TeamBuildingNotFoundException("There is a man without pair");
             }
             T woman = menBestPassions[man].Current;
             if (womenFiances.TryGetValue(woman, out T? otherMan))
@@ -43,6 +43,6 @@ public class GaleShapleyAlgorithm<T> : IMarriageAlgorithm<T> where T: class
                 manPreferences = enumerator.Current;
             }
         }
-        return womenFiances.Select(pair => new Pair<T>(Woman: pair.Key, Man: pair.Value));
+        return womenFiances.Select(pair => new Pair<T>(Junior: pair.Key, Teamlead: pair.Value));
     }
 }
