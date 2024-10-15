@@ -1,8 +1,10 @@
-namespace HackathonProblem.Implementations.Test;
+using HackathonProblem.Implementations;
 
-public class RandomWishlistGeneratorTests
+namespace HackathonProblem.Test;
+
+public abstract class WishlistGeneratorTests
 {
-    private readonly IWishlistGenerator generator = new RandomWishlistGenerator(new Random());
+    protected abstract IWishlistGenerator generator { get; }
 
     [Theory]
     [InlineData(0)]
@@ -82,4 +84,12 @@ public class RandomWishlistGeneratorTests
             }
         }
     }
+}
+
+public class RandomWishlistGeneratorTests : WishlistGeneratorTests
+{
+    private readonly IWishlistGenerator randomWishlistGenerator
+        = new RandomWishlistGenerator(new Random());
+
+    protected override IWishlistGenerator generator => randomWishlistGenerator;
 }

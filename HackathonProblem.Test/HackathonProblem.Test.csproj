@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HackathonProblem.Implementations\HackathonProblem.Implementations.csproj" />
+    <ProjectReference Include="..\HackathonProblem.TeamBuilding\HackathonProblem.TeamBuilding.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-namespace HackathonProblem.Implementations.Test;
+using HackathonProblem.Implementations;
+
+namespace HackathonProblem.Test;
 
 public class HRDirectorTests
 {

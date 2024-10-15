@@ -1,6 +1,7 @@
 using HackathonProblem.TeamBuilding;
+using HackathonProblem.Implementations;
 
-namespace HackathonProblem.Implementations.Test;
+namespace HackathonProblem.Test;
 
 public class HRManagerTests
 {
