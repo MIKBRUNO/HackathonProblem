@@ -5,13 +5,15 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem", "HackathonProblem\HackathonProblem.csproj", "{72AD9611-9150-42ED-BC3D-AF054FFA3B9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.TeamBuilding", "TeamBuilding\HackathonProblem.TeamBuilding.csproj", "{5F7D4D95-C4B0-468B-AE8A-A3BF188E84D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.TeamBuilding", "HackathonProblem.TeamBuilding\HackathonProblem.TeamBuilding.csproj", "{5F7D4D95-C4B0-468B-AE8A-A3BF188E84D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Implementations", "HackathonProblem.Implementations\HackathonProblem.Implementations.csproj", "{B9CF622A-F96E-4117-A580-5C1A94D83E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.ConsoleHackathon", "ConsoleHackathon\HackathonProblem.ConsoleHackathon.csproj", "{9D3527BD-79E9-497B-9F79-CA2CC1F85F6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.ConsoleHackathon", "HackathonProblem.ConsoleHackathon\HackathonProblem.ConsoleHackathon.csproj", "{9D3527BD-79E9-497B-9F79-CA2CC1F85F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.HackathonHost", "Host\HackathonProblem.HackathonHost.csproj", "{DF9D98E1-D3DF-438B-AFFD-98DD7D314593}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.HackathonHost", "HackathonProblem.HackathonHost\HackathonProblem.HackathonHost.csproj", "{DF9D98E1-D3DF-438B-AFFD-98DD7D314593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Test", "HackathonProblem.Test\HackathonProblem.Test.csproj", "{7B75CED3-8B4F-42B8-B97A-FF7EF593528B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DF9D98E1-D3DF-438B-AFFD-98DD7D314593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF9D98E1-D3DF-438B-AFFD-98DD7D314593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF9D98E1-D3DF-438B-AFFD-98DD7D314593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B75CED3-8B4F-42B8-B97A-FF7EF593528B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B75CED3-8B4F-42B8-B97A-FF7EF593528B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B75CED3-8B4F-42B8-B97A-FF7EF593528B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B75CED3-8B4F-42B8-B97A-FF7EF593528B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
