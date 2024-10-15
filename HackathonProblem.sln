@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.TeamBuilding", "TeamBuilding\HackathonProblem.TeamBuilding.csproj", "{5F7D4D95-C4B0-468B-AE8A-A3BF188E84D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.TeamBuilding", "HackathonProblem.TeamBuilding\HackathonProblem.TeamBuilding.csproj", "{5F7D4D95-C4B0-468B-AE8A-A3BF188E84D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nsu.HackathonProblem.Contracts", "Nsu.HackathonProblem.Contracts\Nsu.HackathonProblem.Contracts.csproj", "{55439284-E7B3-4E13-AB70-0F02F9168BC1}"
 EndProject
