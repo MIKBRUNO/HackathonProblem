@@ -10,8 +10,9 @@ public class GaleShapleyStrategy : ITeamBuildingStrategy
         IDictionary<int, Employee> wishedEmployees,
         IEnumerable<Wishlist> wishlists)
     {
+        var preferencesFactory = new PreferencesFactory<Employee>();
         return from wishlist in wishlists
-            select new Preferences<Employee>(
+            select preferencesFactory.CreatePreferences(
                 wishers[wishlist.EmployeeId],
                 from id in wishlist.DesiredEmployees
                 select wishedEmployees[id]
