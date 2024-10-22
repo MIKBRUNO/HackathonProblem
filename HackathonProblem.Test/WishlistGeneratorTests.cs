@@ -2,9 +2,9 @@ using HackathonProblem.Implementations;
 
 namespace HackathonProblem.Test;
 
-public abstract class WishlistGeneratorTests
+public abstract class AWishlistGeneratorTests
 {
-    protected abstract IWishlistGenerator generator { get; }
+    protected abstract IWishlistGenerator Generator { get; }
 
     [Theory]
     [InlineData(0)]
@@ -16,7 +16,7 @@ public abstract class WishlistGeneratorTests
         var employees = from i in Enumerable.Range(0, employeesCount)
         select new Employee(i, "");
         var employee = new Employee(-1, "");
-        var wishlist = generator.GenerateWishlist(employee, employees);
+        var wishlist = Generator.GenerateWishlist(employee, employees);
 
         Assert.Equal(employeesCount, wishlist.DesiredEmployees.Count());
     }
@@ -34,7 +34,7 @@ public abstract class WishlistGeneratorTests
         select new Employee(i, "lead");
         var juniors = from i in Enumerable.Range(0, juniorsCount)
         select new Employee(i, "junior");
-        var wishlists = generator.GenerateWishlists(teamleads, juniors);
+        var wishlists = Generator.GenerateWishlists(teamleads, juniors);
 
         Assert.Equal(teamleadsCount, wishlists.Count());
         foreach (var teamleadWishlist in wishlists)
@@ -51,7 +51,7 @@ public abstract class WishlistGeneratorTests
         {
             employees.Add(new Employee(i, $"Employee{i}"));
         }
-        var wishlist = generator.GenerateWishlist(new Employee(-1, ""), employees);
+        var wishlist = Generator.GenerateWishlist(new Employee(-1, ""), employees);
 
         foreach (var employee in employees)
         {
@@ -69,7 +69,7 @@ public abstract class WishlistGeneratorTests
             teamleads.Add(new Employee(i, $"Teamlead{i}"));
             juniors.Add(new Employee(i, $"Junior{i}"));
         }
-        var wishlists = generator.GenerateWishlists(teamleads, juniors);
+        var wishlists = Generator.GenerateWishlists(teamleads, juniors);
 
         var wishlistOwners = from w in wishlists select w.Owner;
         foreach(var t in teamleads)
@@ -86,10 +86,10 @@ public abstract class WishlistGeneratorTests
     }
 }
 
-public class RandomWishlistGeneratorTests : WishlistGeneratorTests
+public class RandomWishlistGeneratorTests : AWishlistGeneratorTests
 {
     private readonly IWishlistGenerator randomWishlistGenerator
         = new RandomWishlistGenerator(new Random());
 
-    protected override IWishlistGenerator generator => randomWishlistGenerator;
+    protected override IWishlistGenerator Generator => randomWishlistGenerator;
 }
