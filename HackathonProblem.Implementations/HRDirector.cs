@@ -19,14 +19,5 @@ public class HRDirector : IHRDirector
             ]
         );
         return ratings.HarmonicMean();
-
-        // double employeesCount = teamleadsPreferences.Count + juniorsPreferences.Count;
-        // double sum = 0;
-        // foreach (var team in teams)
-        // {
-        //     sum += 1.0 / teamleadsPreferences[team.Teamlead].GetRating(juniorsPreferences[team.Junior].Owner);
-        //     sum += 1.0 / juniorsPreferences[team.Junior].GetRating(teamleadsPreferences[team.Teamlead].Owner);
-        // }
-        // return employeesCount / sum;
     }
 }

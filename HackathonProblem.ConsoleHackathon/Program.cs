@@ -1,4 +1,5 @@
 ﻿using HackathonProblem.Implementations;
+using HackathonProblem.TeamBuilding;
 using HackathonProblem.TeamBuilding.Algorithms;
 
 namespace HackathonProblem.ConsoleHackathon;
@@ -17,7 +18,7 @@ public static class Program
             repeats = int.Parse(args[0]);
         }
         IHackathon hackathon = new Hackathon(new RandomWishlistGenerator(new Random()));
-        IHRManager manager = new HRManager(new GaleShapleyAlgorithm<IEmployee>());
+        IHRManager manager = new HRManager(new GaleShapleyAlgorithm<IEmployee>(), new PreferencesFactory<IEmployee>());
         IHRDirector director = new HRDirector();
         IEnumerable<IEmployee> juniors =
             new CSVEmployeeProvider(JUNIORS_PATH, new EmployeeFactory()).GetEmployees();
