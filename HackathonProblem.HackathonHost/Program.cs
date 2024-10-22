@@ -17,6 +17,7 @@ builder.ConfigureServices(
         services.AddTransient<IHRDirector, HRDirector>();
         services.AddTransient<IHRManager, HRManager>();
         services.AddTransient<ITeamBuildingAlgorithm<IEmployee>, GaleShapleyAlgorithm<IEmployee>>();
+        services.AddTransient<IPreferencesFactory<IEmployee>, PreferencesFactory<IEmployee>>();
         services.AddKeyedTransient<IEmployeeProvider, CSVEmployeeProvider>(
             "teamleads-provider", (_, _) => new CSVEmployeeProvider(TeamleadsPath, new EmployeeFactory())
         );
