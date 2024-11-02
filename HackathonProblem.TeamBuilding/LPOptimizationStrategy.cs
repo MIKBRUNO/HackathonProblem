@@ -3,4 +3,4 @@ using Nsu.HackathonProblem.Contracts;
 
 namespace HackathonProblem.TeamBuilding;
 
-public class GaleShapleyStrategy : CommonAlgorithmStrategy<GaleShapleyAlgorithm<Employee>> { }
+public class LPOptimizationStrategy : CommonAlgorithmStrategy<LPOptimizationAlgorithm<Employee>> { }
