@@ -25,4 +25,10 @@ public sealed class TestEmployees
         new Wishlist(juniors[1], [teamleads[1], teamleads[2], teamleads[0]]),
         new Wishlist(juniors[2], [teamleads[2], teamleads[0], teamleads[1]])
     ];
+
+    public static readonly IDictionary<IEmployee, IWishlist> teamleadsWishlistsDict
+        = teamleadsWishlists.ToDictionary(w => w.Owner);
+
+    public static readonly IDictionary<IEmployee, IWishlist> juniorssWishlistsDict
+        = juniorssWishlists.ToDictionary(w => w.Owner);
 }

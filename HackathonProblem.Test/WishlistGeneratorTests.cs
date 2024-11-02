@@ -69,6 +69,7 @@ public abstract class AWishlistGeneratorTests
             teamleads.Add(new Employee(i, $"Teamlead{i}"));
             juniors.Add(new Employee(i, $"Junior{i}"));
         }
+        
         var wishlists = Generator.GenerateWishlists(teamleads, juniors);
 
         var wishlistOwners = from w in wishlists select w.Owner;
