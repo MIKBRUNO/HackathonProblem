@@ -112,3 +112,25 @@ public class GaleShapleyHRManagerTests : AHRManagerTests
             new Team(TestEmployees.teamleads[2], TestEmployees.juniors[2]),
         ];
 }
+
+public class LPHRManagerTests : AHRManagerTests
+{
+    protected override IHRManager GetHRManager(ITeamBuildingAlgorithm<IEmployee> teamBuilding, IPreferencesFactory<IEmployee> factory)
+        => new HRManager(teamBuilding, factory);
+
+    protected override ITeamBuildingAlgorithm<IEmployee> Algorithm
+        => new LPOptimizationAlgorithm<IEmployee>();
+
+    protected override IEnumerable<IWishlist> PredefinedTeamleadsWishlists
+        => TestEmployees.teamleadsWishlists;
+
+    protected override IEnumerable<IWishlist> PredefinedJuniorsWishlists
+        => TestEmployees.juniorssWishlists;
+
+    protected override IEnumerable<ITeam> PredefinedTeams
+        => [
+            new Team(TestEmployees.teamleads[0], TestEmployees.juniors[0]),
+            new Team(TestEmployees.teamleads[1], TestEmployees.juniors[1]),
+            new Team(TestEmployees.teamleads[2], TestEmployees.juniors[2]),
+        ];
+}
