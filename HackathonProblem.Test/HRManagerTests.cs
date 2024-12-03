@@ -2,6 +2,9 @@ using HackathonProblem.TeamBuilding;
 using HackathonProblem.Implementations;
 using HackathonProblem.TeamBuilding.Algorithms;
 
+using Moq;
+using System.Linq.Expressions;
+
 namespace HackathonProblem.Test;
 
 
@@ -20,19 +23,6 @@ public abstract class AHRManagerTests
 
     protected abstract IEnumerable<ITeam> PredefinedTeams { get; }
 
-    private class CallCountTeamBuildingAlgorithm : ITeamBuildingAlgorithm<IEmployee>
-    {
-        public int CallCount { get; private set; }
-
-        public IEnumerable<Pair<IEmployee>> BuildPairs(
-            IEnumerable<IPreferences<IEmployee>> teamleadsPreferences,
-            IEnumerable<IPreferences<IEmployee>> juniorsPreferences)
-        {
-            CallCount += 1;
-            return [];
-        }
-    }
-
     private readonly IWishlistGenerator generator = new RandomWishlistGenerator(new Random());
 
     private Tuple<IEnumerable<IWishlist>, IEnumerable<IWishlist>> RandomWishslists(int count)
@@ -44,25 +34,35 @@ public abstract class AHRManagerTests
         return new (wishlists1, wishlists2);
     }
 
-
-// try use mock
     [Fact]
     public void BuildTeams_InputIsEmpty_StrategyMusctBeCalledOnce()
     {
-        var callCount = new CallCountTeamBuildingAlgorithm();
-        var manager = GetHRManager(callCount, new PreferencesFactory<IEmployee>());
+        var mockAlgorithm = new Mock<ITeamBuildingAlgorithm<IEmployee>>();
+        Expression<Func<ITeamBuildingAlgorithm<IEmployee>, IEnumerable<Pair<IEmployee>>>>
+        expr = s => s.BuildPairs(
+                    It.IsAny<IEnumerable<IPreferences<IEmployee>>>(),
+                    It.IsAny<IEnumerable<IPreferences<IEmployee>>>());
+        mockAlgorithm.Setup(expr).Returns([]);
+        var manager = GetHRManager(mockAlgorithm.Object, new PreferencesFactory<IEmployee>());
         manager.BuildTeams([], []);
-        Assert.Equal(1, callCount.CallCount);
+        var exception = Record.Exception(() => mockAlgorithm.Verify(expr, Times.Once));
+        Assert.Null(exception);
     }
 
     [Fact]
     public void BuildTeams_InputIsRandom5x5Employees_StrategyMusctBeCalledOnce()
     {
-        var callCount = new CallCountTeamBuildingAlgorithm();
-        var manager = GetHRManager(callCount, new PreferencesFactory<IEmployee>());
+                var mockAlgorithm = new Mock<ITeamBuildingAlgorithm<IEmployee>>();
+        Expression<Func<ITeamBuildingAlgorithm<IEmployee>, IEnumerable<Pair<IEmployee>>>>
+        expr = s => s.BuildPairs(
+                    It.IsAny<IEnumerable<IPreferences<IEmployee>>>(),
+                    It.IsAny<IEnumerable<IPreferences<IEmployee>>>());
+        mockAlgorithm.Setup(expr).Returns([]);
+        var manager = GetHRManager(mockAlgorithm.Object, new PreferencesFactory<IEmployee>());
         var (wishlists1, wishlists2) = RandomWishslists(5);
         manager.BuildTeams(wishlists1, wishlists2);
-        Assert.Equal(1, callCount.CallCount);
+        var exception = Record.Exception(() => mockAlgorithm.Verify(expr, Times.Once));
+        Assert.Null(exception);
     }
 
     [Fact]

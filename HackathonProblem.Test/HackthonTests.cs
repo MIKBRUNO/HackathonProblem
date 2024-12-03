@@ -27,8 +27,6 @@ public abstract class AHackthonTests
         }
     }
 
-
-// ramake as integration test with mocking
     [Fact]
     public void Perform_InputIsPredefined_RatingMustBePredefined()
     {
@@ -37,14 +35,29 @@ public abstract class AHackthonTests
             TestEmployees.teamleads, TestEmployees.juniors,
             Manager, Director
         );
-        Assert.Equal(3.0, result.SatisfactionRate);
+        Assert.Equal(3.0, result.SatisfactionRate, 0.0001);
     }
 }
 
-class GaleShapleyHackathonTests : AHackthonTests
+public class GaleShapleyHackathonTests : AHackthonTests
 {
     protected override IHRManager Manager => new HRManager(
         new GaleShapleyAlgorithm<IEmployee>(),
+        new PreferencesFactory<IEmployee>()
+    );
+
+    protected override IHRDirector Director => new HRDirector();
+
+    protected override IHackathon GetHackathon(IWishlistGenerator wishlistGenerator)
+    {
+        return new Hackathon(wishlistGenerator);
+    }
+}
+
+public class LPHackathonTests : AHackthonTests
+{
+    protected override IHRManager Manager => new HRManager(
+        new LPOptimizationAlgorithm<IEmployee>(),
         new PreferencesFactory<IEmployee>()
     );
 

@@ -47,8 +47,6 @@ public class HRDirectorTests
         Assert.Equal(3, actual, 12);
     }
 
-    // no scare to dublicate data in tests its OK
-
     [Fact]
     public void CalculateSatisfaction_WithPredeterminedRatings_Test1()
     {
