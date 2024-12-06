@@ -30,12 +30,13 @@ public class HackathonWorker(
             context.Teamleads.AnyAsync(cancellationToken),
         ];
         await Task.WhenAll(tasks);
-        if (tasks.All(t => !t.Result))
+        if (!tasks.All(t => t.Result))
         {
             await Task.WhenAll([
                 context.Juniors.AddRangeAsync(juniorsProvider.GetJuniors(), cancellationToken),
                 context.Teamleads.AddRangeAsync(teamleadsProvider.GetTeamleads(), cancellationToken),
             ]);
+            await context.SaveChangesAsync(cancellationToken);
         }
         LongRunningTask = Run(cancellationToken);
     }
