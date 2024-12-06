@@ -1,4 +1,4 @@
-namespace HackathonProblem.Implementations;
+namespace HackathonProblem.Database.EmployeeProviders;
 
 public class CSVEmployeeProviderOptions
 {
