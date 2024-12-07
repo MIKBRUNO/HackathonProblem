@@ -1,4 +1,3 @@
-using HackathonProblem;
 namespace HackathonProblem.Implementations;
 
 public class Hackathon(IWishlistGenerator generator) : IHackathon

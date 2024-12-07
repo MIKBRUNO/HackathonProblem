@@ -6,7 +6,7 @@ public class RandomShuffler<T>(Random random)
 
     public IEnumerable<T> Shuffle(IEnumerable<T> values)
     {
-        List<T> list = new(values);
+        List<T> list = [.. values];
         int length = list.Count;
         List<T> shuffled = [];
         while (length > 0)
