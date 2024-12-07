@@ -1,4 +1,5 @@
 using HackathonProblem;
+using HackathonProblem.Default;
 using HackathonProblem.HackathonHost;
 using HackathonProblem.Implementations;
 using HackathonProblem.TeamBuilding;
@@ -13,10 +14,14 @@ builder.ConfigureServices(
     {
         services.AddHostedService<RepeatHackathonWorker>();
         services.AddScoped<IHackathon, Hackathon>();
-        services.AddTransient<IWishlistGenerator>(_ => new RandomWishlistGenerator(new Random()));
+        services.AddSingleton<Random>();
+        services.AddTransient<IWishlistGenerator, RandomWishlistGenerator>();
         services.AddTransient<IHRDirector, HRDirector>();
         services.AddTransient<IHRManager, HRManager>();
         services.AddTransient<ITeamBuildingAlgorithm<IEmployee>, GaleShapleyAlgorithm<IEmployee>>();
+        services.AddTransient<ITeamFactory, TeamFactory>();
+        services.AddTransient<IWishlistFactory, WishlistFactory>();
+        services.AddTransient<IEmployeeFactory, EmployeeFactory>();
         services.AddTransient<IPreferencesFactory<IEmployee>, PreferencesFactory<IEmployee>>();
         services.AddKeyedTransient<IEmployeeProvider, CSVEmployeeProvider>(
             "teamleads-provider", (_, _) => new CSVEmployeeProvider(TeamleadsPath, new EmployeeFactory())

@@ -1,6 +1,7 @@
 using HackathonProblem;
 using HackathonProblem.Database;
 using HackathonProblem.Database.App;
+using HackathonProblem.Database.DataTypes;
 using HackathonProblem.Database.EmployeeProviders;
 using HackathonProblem.Implementations;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +13,11 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddHostedService<HackathonWorker>();
         
         services.AddSingleton<Random>();
+        services.AddTransient<IWishlistFactory, WishlistFactory>(); 
         services.AddTransient<IWishlistGenerator, RandomWishlistGenerator>();
         
-        services.AddTransient<IEmployeeFactory, EmployeeFactory>();
+        services.AddTransient<EmployeeFactory<Junior>>();
+        services.AddTransient<EmployeeFactory<Teamlead>>();
         services.AddTransient<IJuniorsProvider, CSVJuniorsProvider>();
         services.AddTransient<ITeamleadsProvider, CSVTeamleadsProvider>();
         

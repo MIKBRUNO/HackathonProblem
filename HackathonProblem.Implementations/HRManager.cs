@@ -4,7 +4,8 @@ namespace HackathonProblem.Implementations;
 
 public class HRManager(
     ITeamBuildingAlgorithm<IEmployee> algorithm,
-    IPreferencesFactory<IEmployee> preferencesFactory) : IHRManager
+    IPreferencesFactory<IEmployee> preferencesFactory,
+    ITeamFactory teamFactory) : IHRManager
 {
     private readonly ITeamBuildingAlgorithm<IEmployee> algorithm = algorithm;
     private readonly IPreferencesFactory<IEmployee> preferencesFactory = preferencesFactory;
@@ -19,6 +20,6 @@ public class HRManager(
             w => preferencesFactory.CreatePreferences(w.Owner, w.DesiredEmployees)
         );
         var pairs = algorithm.BuildPairs(teamleadsPreferences, juniorsPreferences);
-        return pairs.Select(p => new Team(p.Teamlead, p.Junior));
+        return pairs.Select(p => teamFactory.CreateTeam(p.Teamlead, p.Junior));
     }
 }

@@ -17,10 +17,18 @@ public class HackathonWorker(
     {
         var teamleads = context.Teamleads;
         var juniors = context.Juniors;
-        // var teamleadsWishlists = generator.GenerateWishlists(teamleads, juniors);
-        // var juniorsWishlists = generator.GenerateWishlists(juniors, teamleads);
-        // var aa = juniorsWishlists.Select(w => new JuniorWishlist(w)).ToList();
-        // context.JuniorWishlists.Add(aa[0]);
+        var juniorsWishlists = generator.GenerateWishlists(juniors, teamleads);
+        var teamleadsWishlists = generator.GenerateWishlists(teamleads, juniors);
+        Task[] tasks = [
+            context.JuniorWishlists.AddRangeAsync(
+                juniorsWishlists.Select(w => w as JuniorWishlist),
+                cancellationToken),
+            context.TeamleadWishlists.AddRangeAsync(
+                teamleadsWishlists.Select(w => w as TeamleadWishlist),
+                cancellationToken),
+        ];
+        await Task.WhenAll(tasks);
+        await context.SaveChangesAsync(cancellationToken);
         // await context.Hackathons.AddAsync(new Hackathon() {
         //     Id = 0,
         //     JuniorWishlists = juniorsWishlists.Select(w => new JuniorWishlist(w)).ToList(),
@@ -49,7 +57,6 @@ public class HackathonWorker(
             await context.SaveChangesAsync(cancellationToken);
         }
         LongRunningTask = Run(cancellationToken);
-        logger.LogDebug("Started");
     }
     public async Task StopAsync(CancellationToken cancellationToken)
     {
