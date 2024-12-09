@@ -8,5 +8,5 @@ public interface IHackathon
         IEnumerable<IEmployee> teamleads, IEnumerable<IEmployee> juniors,
         IHRManager manager, IHRDirector director);
 
-    event EventHandler<(IEnumerable<IWishlist>, IEnumerable<IWishlist>)> OnWishlistGenerated;
+    event EventHandler<(IEnumerable<IWishlist> TeamleadsWishlists, IEnumerable<IWishlist> JuniorsWishlists)> OnWishlistGenerated;
 }
