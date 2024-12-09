@@ -9,7 +9,7 @@ public class HackathonContext : DbContext
 {
     public required DbSet<Junior> Juniors { get; set; }
     public required DbSet<Teamlead> Teamleads { get; set; }
-    // public required DbSet<Hackathon> Hackathons { get; set; }
+    public required DbSet<Hackathon> Hackathons { get; set; }
     public required DbSet<TeamleadWishlist> TeamleadWishlists { get; set; }
     public required DbSet<JuniorWishlist> JuniorWishlists { get; set; }
     public required DbSet<Rate<Junior>> JuniorRates { get; set; }
@@ -26,7 +26,7 @@ public class HackathonContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Junior>(ConfigureEmployee);
         modelBuilder.Entity<Teamlead>(ConfigureEmployee);
-        // modelBuilder.Entity<Hackathon>(ConfigureHackathon);
+        modelBuilder.Entity<Hackathon>(ConfigureHackathon);
         modelBuilder.Entity<JuniorWishlist>(ConfigureWishlist<JuniorWishlist, Junior, Teamlead>);
         modelBuilder.Entity<TeamleadWishlist>(ConfigureWishlist<TeamleadWishlist, Teamlead, Junior>);
         modelBuilder.Entity<Rate<Junior>>(ConfigureRate);
@@ -39,12 +39,12 @@ public class HackathonContext : DbContext
         entity.Property(e => e.Name).IsRequired();
     }
 
-    // private static void ConfigureHackathon(EntityTypeBuilder<Hackathon> entity)
-    // {
-    //     entity.HasKey(e => e.Id);
-    //     entity.HasMany(e => e.TeamleadWishlists).WithOne().HasForeignKey(e => e.HackathonId);
-    //     entity.HasMany(e => e.JuniorWishlists).WithOne().HasForeignKey(e => e.HackathonId);
-    // }
+    private static void ConfigureHackathon(EntityTypeBuilder<Hackathon> entity)
+    {
+        entity.HasKey(e => e.Id);
+        entity.HasMany(e => e.TeamleadWishlists).WithOne().HasForeignKey(e => e.HackathonId);
+        entity.HasMany(e => e.JuniorWishlists).WithOne().HasForeignKey(e => e.HackathonId);
+    }
 
     private static void ConfigureWishlist<T, O, E>(EntityTypeBuilder<T> entity)
         where T : Wishlist<O, E>
