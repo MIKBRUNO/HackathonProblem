@@ -7,4 +7,8 @@ public class Hackathon
     public List<TeamleadWishlist> TeamleadWishlists { get; set; }
 
     public List<JuniorWishlist> JuniorWishlists { get; set; }
+
+    public List<Team> Teams { get; set; }
+
+    public double StisfactionRate { get; set; }
 }

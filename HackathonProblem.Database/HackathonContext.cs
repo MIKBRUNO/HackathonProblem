@@ -5,21 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HackathonProblem.Database;
 
-public class HackathonContext : DbContext
+public class HackathonContext(DbContextOptions<HackathonContext> options) : DbContext(options)
 {
     public required DbSet<Junior> Juniors { get; set; }
     public required DbSet<Teamlead> Teamleads { get; set; }
     public required DbSet<Hackathon> Hackathons { get; set; }
-    public required DbSet<TeamleadWishlist> TeamleadWishlists { get; set; }
-    public required DbSet<JuniorWishlist> JuniorWishlists { get; set; }
-    public required DbSet<Rate<Junior>> JuniorRates { get; set; }
-    public required DbSet<Rate<Teamlead>> TeamleadRates { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		var connectionString = new SqliteConnectionStringBuilder() { DataSource = "HackathonProblem.db" }.ToString();
-		optionsBuilder.UseSqlite(connectionString);
-	}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,6 +21,7 @@ public class HackathonContext : DbContext
         modelBuilder.Entity<TeamleadWishlist>(ConfigureWishlist<TeamleadWishlist, Teamlead, Junior>);
         modelBuilder.Entity<Rate<Junior>>(ConfigureRate);
         modelBuilder.Entity<Rate<Teamlead>>(ConfigureRate);
+        modelBuilder.Entity<Team>(ConfigureTeam);
     }
 
     private static void ConfigureEmployee<T>(EntityTypeBuilder<T> entity) where T : Employee
@@ -44,6 +35,8 @@ public class HackathonContext : DbContext
         entity.HasKey(e => e.Id);
         entity.HasMany(e => e.TeamleadWishlists).WithOne().HasForeignKey(e => e.HackathonId);
         entity.HasMany(e => e.JuniorWishlists).WithOne().HasForeignKey(e => e.HackathonId);
+        entity.HasMany(e => e.Teams).WithOne().HasForeignKey(e => e.HackathonId);
+        entity.Property(e => e.StisfactionRate).IsRequired();
     }
 
     private static void ConfigureWishlist<T, O, E>(EntityTypeBuilder<T> entity)
@@ -60,5 +53,12 @@ public class HackathonContext : DbContext
     {
         entity.HasKey(e => new { e.WishlistId, e.Rating });
         entity.HasOne(e => e.Mate).WithMany();
+    }
+
+    private static void ConfigureTeam(EntityTypeBuilder<Team> entity)
+    {
+        entity.HasKey(e => e.Id);
+        entity.HasOne(e => e.Teamlead).WithMany();
+        entity.HasOne(e => e.Junior).WithMany();
     }
 }
