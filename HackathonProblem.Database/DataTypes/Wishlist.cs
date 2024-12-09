@@ -19,6 +19,8 @@ public class Wishlist<O, E> : IWishlist
 {
     public int Id { get; set; }
 
+    public int HackathonId { get; set; }
+
     public O Owner { get; set; }
 
     public List<Rate<E>> Ratings { get; set; }

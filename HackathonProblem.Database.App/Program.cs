@@ -21,7 +21,7 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddTransient<IJuniorsProvider, CSVJuniorsProvider>();
         services.AddTransient<ITeamleadsProvider, CSVTeamleadsProvider>();
         
-        services.AddDbContext<HackathonContext>();
+        services.AddDbContextFactory<HackathonContext>();
         
         services.Configure<CSVEmployeeProviderOptions>(
             context.Configuration.GetSection(nameof(CSVEmployeeProviderOptions))

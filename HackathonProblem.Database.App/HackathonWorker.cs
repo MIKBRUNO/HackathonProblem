@@ -1,6 +1,7 @@
 using HackathonProblem.Database.DataTypes;
 using HackathonProblem.Database.EmployeeProviders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -15,28 +16,18 @@ public class HackathonWorker(
 {
     public async Task Run(CancellationToken cancellationToken)
     {
-        var teamleads = context.Teamleads;
         var juniors = context.Juniors;
-        var juniorsWishlists = generator.GenerateWishlists(juniors, teamleads);
-        var teamleadsWishlists = generator.GenerateWishlists(teamleads, juniors);
-        Task[] tasks = [
-            context.JuniorWishlists.AddRangeAsync(
-                juniorsWishlists.Select(w => w as JuniorWishlist),
-                cancellationToken),
-            context.TeamleadWishlists.AddRangeAsync(
-                teamleadsWishlists.Select(w => w as TeamleadWishlist),
-                cancellationToken),
-        ];
-        await Task.WhenAll(tasks);
+        var teamleads = context.Teamleads;
+        var juniorsWishlists = generator.GenerateWishlists(juniors, teamleads)
+                .Select(w => w as JuniorWishlist).ToList();
+        var teamleadsWishlists = generator.GenerateWishlists(teamleads, juniors)
+                .Select(w => w as TeamleadWishlist).ToList();
+        await context.Hackathons.AddAsync(new Hackathon() {
+            Id = 0,
+            JuniorWishlists = juniorsWishlists!,
+            TeamleadWishlists = teamleadsWishlists!,
+        }, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
-        // await context.Hackathons.AddAsync(new Hackathon() {
-        //     Id = 0,
-        //     JuniorWishlists = juniorsWishlists.Select(w => new JuniorWishlist(w)).ToList(),
-        //     TeamleadWishlists = teamleadsWishlists.Select(w => new TeamleadWishlist(w)).ToList(),
-        // }, cancellationToken);
-        // logger.LogDebug("Finished1");
-        // await context.SaveChangesAsync(cancellationToken);
-        // logger.LogDebug("Finished2");
         lifetime.StopApplication();
     }
     public async Task StartAsync(CancellationToken cancellationToken)
