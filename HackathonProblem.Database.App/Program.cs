@@ -29,7 +29,7 @@ var builder = Host.CreateDefaultBuilder()
         services.AddTransient<IJuniorsProvider, CSVJuniorsProvider>();
         services.AddTransient<ITeamleadsProvider, CSVTeamleadsProvider>();
 
-        services.AddTransient<IHackathon, HackathonProblem.Implementations.Hackathon>();
+        services.AddTransient<IHackathonRepository, HackathonRepository>();
         services.AddTransient<IHRDirector, HRDirector>();
         services.AddTransient<IHRManager, HRManager>();
         services.AddTransient<IPreferencesFactory<IEmployee>, PreferencesFactory<IEmployee>>();
