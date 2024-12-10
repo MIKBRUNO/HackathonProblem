@@ -2,6 +2,8 @@ namespace HackathonProblem.Database.DataTypes;
 
 public class Employee : IEmployee
 {
+    public int HackathonId { get; set; }
+ 
     public int Id { get; set; }
 
     public string Name { get; set; }

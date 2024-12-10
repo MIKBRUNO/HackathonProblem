@@ -7,8 +7,6 @@ namespace HackathonProblem.Database;
 
 public class HackathonContext(DbContextOptions<HackathonContext> options) : DbContext(options)
 {
-    public required DbSet<Junior> Juniors { get; set; }
-    public required DbSet<Teamlead> Teamleads { get; set; }
     public required DbSet<Hackathon> Hackathons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,13 +24,15 @@ public class HackathonContext(DbContextOptions<HackathonContext> options) : DbCo
 
     private static void ConfigureEmployee<T>(EntityTypeBuilder<T> entity) where T : Employee
     {
-        entity.HasKey(e => e.Id);
+        entity.HasKey(e => new { e.Id, e.HackathonId });
         entity.Property(e => e.Name).IsRequired();
     }
 
     private static void ConfigureHackathon(EntityTypeBuilder<Hackathon> entity)
     {
         entity.HasKey(e => e.Id);
+        entity.HasMany(e => e.Juniors).WithOne().HasForeignKey(e => e.HackathonId);
+        entity.HasMany(e => e.Teamleads).WithOne().HasForeignKey(e => e.HackathonId);
         entity.HasMany(e => e.TeamleadWishlists).WithOne().HasForeignKey(e => e.HackathonId);
         entity.HasMany(e => e.JuniorWishlists).WithOne().HasForeignKey(e => e.HackathonId);
         entity.HasMany(e => e.Teams).WithOne().HasForeignKey(e => e.HackathonId);

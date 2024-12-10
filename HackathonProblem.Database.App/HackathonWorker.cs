@@ -12,46 +12,33 @@ namespace HackathonProblem.Database.App;
 public class HackathonWorker(
     ParserResult<object> parserResult,
     ILogger<HackathonWorker> logger, IHostApplicationLifetime lifetime,
-    HackathonContext context,
+    IHackathonRepository repository, HackathonContext context,
     ITeamleadsProvider teamleadsProvider, IJuniorsProvider juniorsProvider,
-    IHackathon hackathon, IHRManager manager, IHRDirector director
+    IHRManager manager, IHRDirector director
     ) : IHostedService
 {
-    public async Task Perform(CancellationToken cancellationToken)
+    public Task Perform(CancellationToken cancellationToken)
     {
-        var juniors = context.Juniors;
-        var teamleads = context.Teamleads;
-        List<JuniorWishlist?>? juniorsWishlists = null;
-        List<TeamleadWishlist?>? teamleadsWishlists = null;
-        hackathon.OnWishlistGenerated += (_, p) =>
-        {
-            logger.LogDebug("Wishlists generated");
-            juniorsWishlists = p.JuniorsWishlists.Select(w => w as JuniorWishlist).ToList();
-            teamleadsWishlists = p.TeamleadsWishlists.Select(w => w as TeamleadWishlist).ToList();
-        };
+        var juniors = juniorsProvider.GetEmployees();
+        var teamleads = teamleadsProvider.GetEmployees();
         logger.LogDebug("Hackathon started");
-        var result = hackathon.Perform(teamleads, juniors, manager, director);
+        var info = repository.PerformAndSave(teamleads, juniors, manager, director);
         logger.LogDebug("Hackathon finished");
-        await context.Hackathons.AddAsync(new Hackathon() {
-            Id = 0,
-            JuniorWishlists = juniorsWishlists!,
-            TeamleadWishlists = teamleadsWishlists!,
-            Teams = result.Teams.Select(t => t as Team).ToList()!,
-            StisfactionRate = result.SatisfactionRate
-        }, cancellationToken);
-        await context.SaveChangesAsync(cancellationToken);
-        logger.LogDebug("Hackathon saved");
+        Console.WriteLine($"Hackathon id: {info.Id}");
+        Console.WriteLine($"Hackathon score: {info.StisfactionRate}");
         logger.LogDebug("Stopping application");
         lifetime.StopApplication();
+        return Task.CompletedTask;
     }
 
-    public async Task Show(ShowOptions options, CancellationToken cancellationToken)
+    public Task Show(ShowOptions options, CancellationToken cancellationToken)
     {
+        var info = repository.Load(options.Id);
         if (options.Employees)
         {
             Console.WriteLine("{0,25}", "-=Employees=-");
-            var juniors = context.Juniors;
-            var teamleads = context.Teamleads;
+            var juniors = info.Juniors;
+            var teamleads = info.Teamleads;
             Console.WriteLine("Teamleads");
             foreach (var t in teamleads)
                 Console.WriteLine($"{t.Id}. {t.Name}");
@@ -61,65 +48,45 @@ public class HackathonWorker(
                 Console.WriteLine($"{j.Id}. {j.Name}");
             Console.WriteLine();
         }
-        Hackathon hackathon;
         if (options.Wishlists)
         {
-            hackathon = await context.Hackathons
-                .Where(h => h.Id == options.Id)
-                .Include(h => h.JuniorWishlists)
-                    .ThenInclude(t => t.Ratings)
-                    .ThenInclude(r => r.Mate)
-                .Include(h => h.TeamleadWishlists)
-                    .ThenInclude(t => t.Ratings)
-                    .ThenInclude(r => r.Mate)
-                .AsSplitQuery()
-                .SingleOrDefaultAsync(cancellationToken)
-                ?? throw new ArgumentException("Bad hackathon id");
             Console.WriteLine("{0,25}", "-=Wishlists=-");
-            var tw = hackathon.TeamleadWishlists;
-            var jw = hackathon.JuniorWishlists;
+            var tw = info.TeamleadWishlists;
+            var jw = info.JuniorWishlists;
             foreach (var t in tw)
             {
                 Console.WriteLine($"Teamlead {t.Owner.Name}'s Wishlist:");
-                foreach (var r in t.Ratings.OrderBy(r => r.Rating))
-                    Console.WriteLine($"{r.Rating}: {r.Mate.Name}");
+                foreach (var r in t.DesiredEmployees)
+                    Console.WriteLine($"{r.Name}");
             }
             foreach (var j in jw)
             {
                 Console.WriteLine($"Junior {j.Owner.Name}'s Wishlist:");
-                foreach (var r in j.Ratings.OrderBy(r => r.Rating))
-                    Console.WriteLine($"{r.Rating}: {r.Mate.Name}");
+                foreach (var r in j.DesiredEmployees)
+                    Console.WriteLine($"{r.Name}");
             }
             Console.WriteLine();
         }
-        hackathon = await context.Hackathons
-            .Where(h => h.Id == options.Id)
-            .Include(h => h.Teams)
-                .ThenInclude(t => t.Teamlead)
-            .Include(h => h.Teams)
-                .ThenInclude(t => t.Junior)
-            .SingleOrDefaultAsync(cancellationToken)
-            ?? throw new ArgumentException("Bad hackathon id");
-        var teams = hackathon.Teams;
+        var teams = info.Teams;
         Console.WriteLine("{0,25}", "-=Teams=-");
         Console.WriteLine("{0,-25}{1,-25}", "Teamleads", "Juniors");
         foreach (var t in teams)
             Console.WriteLine("{0,-25}{1,-25}", t.Teamlead.Name, t.Junior.Name);
         Console.WriteLine("{0,25}", "-=Staisfaction Rate=-");
         Console.WriteLine();
-        Console.WriteLine("{0,-25}{1:N2}", "Satisfaction rate:", hackathon.StisfactionRate);
+        Console.WriteLine("{0,-25}{1:N2}", "Satisfaction rate:", info.StisfactionRate);
         logger.LogDebug("Stopping application");
         lifetime.StopApplication();
+        return Task.CompletedTask;
     }
 
-    public async Task Average(CancellationToken cancellationToken)
+    public Task Average(CancellationToken cancellationToken)
     {
-        var avg = await context.Hackathons
-            .Select(h => h.StisfactionRate)
-            .AverageAsync(cancellationToken);
-        Console.WriteLine($"Average satisfaction rate: {avg}");
+        var avg = repository.OverallAverageScore();
+        Console.WriteLine("Average satisfaction rate: {0:N2}", avg);
         logger.LogDebug("Stopping application");
         lifetime.StopApplication();
+        return Task.CompletedTask;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -157,24 +124,9 @@ public class HackathonWorker(
     private async Task PrepareDatabse(CancellationToken cancellationToken)
     {
         logger.LogDebug("Preparing database");
+        // await context.Database.EnsureDeletedAsync(cancellationToken);
         await context.Database.EnsureCreatedAsync(cancellationToken);
         logger.LogTrace("Database created");
-        Task<bool>[] tasks = [
-            context.Juniors.AnyAsync(cancellationToken),
-            context.Teamleads.AnyAsync(cancellationToken),
-        ];
-        await Task.WhenAll(tasks);
-        if (!tasks.All(t => t.Result))
-        {
-            logger.LogTrace("Users not found");
-            logger.LogTrace("Uploading users");
-            await Task.WhenAll([
-                context.Juniors.AddRangeAsync(juniorsProvider.GetJuniors(), cancellationToken),
-                context.Teamleads.AddRangeAsync(teamleadsProvider.GetTeamleads(), cancellationToken),
-            ]);
-            await context.SaveChangesAsync(cancellationToken);
-            logger.LogTrace("Users uploaded");
-        }
         logger.LogDebug("Database ready");
     }
 }
