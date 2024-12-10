@@ -4,6 +4,7 @@ using HackathonProblem.TeamBuilding.Algorithms;
 
 using Moq;
 using System.Linq.Expressions;
+using HackathonProblem.Default;
 
 namespace HackathonProblem.Test;
 
@@ -23,7 +24,7 @@ public abstract class AHRManagerTests
 
     protected abstract IEnumerable<ITeam> PredefinedTeams { get; }
 
-    private readonly IWishlistGenerator generator = new RandomWishlistGenerator(new Random());
+    private readonly IWishlistGenerator generator = new RandomWishlistGenerator(new Random(), new WishlistFactory());
 
     private Tuple<IEnumerable<IWishlist>, IEnumerable<IWishlist>> RandomWishslists(int count)
     {
@@ -94,7 +95,7 @@ public abstract class AHRManagerTests
 public class GaleShapleyHRManagerTests : AHRManagerTests
 {
     protected override IHRManager GetHRManager(ITeamBuildingAlgorithm<IEmployee> teamBuilding, IPreferencesFactory<IEmployee> factory)
-        => new HRManager(teamBuilding, factory);
+        => new HRManager(teamBuilding, factory, new TeamFactory());
 
     protected override ITeamBuildingAlgorithm<IEmployee> Algorithm
         => new GaleShapleyAlgorithm<IEmployee>();
@@ -116,7 +117,7 @@ public class GaleShapleyHRManagerTests : AHRManagerTests
 public class LPHRManagerTests : AHRManagerTests
 {
     protected override IHRManager GetHRManager(ITeamBuildingAlgorithm<IEmployee> teamBuilding, IPreferencesFactory<IEmployee> factory)
-        => new HRManager(teamBuilding, factory);
+        => new HRManager(teamBuilding, factory, new TeamFactory());
 
     protected override ITeamBuildingAlgorithm<IEmployee> Algorithm
         => new LPOptimizationAlgorithm<IEmployee>();

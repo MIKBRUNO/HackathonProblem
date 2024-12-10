@@ -1,3 +1,4 @@
+using HackathonProblem.Default;
 using HackathonProblem.Implementations;
 using HackathonProblem.TeamBuilding;
 using HackathonProblem.TeamBuilding.Algorithms;
@@ -43,7 +44,8 @@ public class GaleShapleyHackathonTests : AHackthonTests
 {
     protected override IHRManager Manager => new HRManager(
         new GaleShapleyAlgorithm<IEmployee>(),
-        new PreferencesFactory<IEmployee>()
+        new PreferencesFactory<IEmployee>(),
+        new TeamFactory()
     );
 
     protected override IHRDirector Director => new HRDirector();
@@ -58,7 +60,8 @@ public class LPHackathonTests : AHackthonTests
 {
     protected override IHRManager Manager => new HRManager(
         new LPOptimizationAlgorithm<IEmployee>(),
-        new PreferencesFactory<IEmployee>()
+        new PreferencesFactory<IEmployee>(),
+        new TeamFactory()
     );
 
     protected override IHRDirector Director => new HRDirector();

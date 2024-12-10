@@ -7,7 +7,7 @@ namespace HackathonProblem.Database;
 
 public class HackathonContext(DbContextOptions<HackathonContext> options) : DbContext(options)
 {
-    public required DbSet<Hackathon> Hackathons { get; set; }
+    public DbSet<Hackathon> Hackathons => Set<Hackathon>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
