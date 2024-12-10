@@ -1,3 +1,4 @@
+using HackathonProblem.Default;
 using HackathonProblem.Implementations;
 
 namespace HackathonProblem.Test;
@@ -90,7 +91,7 @@ public abstract class AWishlistGeneratorTests
 public class RandomWishlistGeneratorTests : AWishlistGeneratorTests
 {
     private readonly IWishlistGenerator randomWishlistGenerator
-        = new RandomWishlistGenerator(new Random());
+        = new RandomWishlistGenerator(new Random(), new WishlistFactory());
 
     protected override IWishlistGenerator Generator => randomWishlistGenerator;
 }

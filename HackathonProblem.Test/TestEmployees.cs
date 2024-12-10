@@ -1,3 +1,5 @@
+using HackathonProblem.Default;
+
 namespace HackathonProblem.Test;
 
 public sealed class TestEmployees

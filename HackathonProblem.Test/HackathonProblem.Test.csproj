@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../HackathonProblem.Database/HackathonProblem.Database.csproj" />
+    <ProjectReference Include="../HackathonProblem.Default/HackathonProblem.Default.csproj" />
     <ProjectReference Include="../HackathonProblem.Implementations/HackathonProblem.Implementations.csproj" />
     <ProjectReference Include="..\HackathonProblem.TeamBuilding\HackathonProblem.TeamBuilding.csproj" />
   </ItemGroup>
